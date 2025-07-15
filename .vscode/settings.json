@@ -1,0 +1,8 @@
+{
+    "terminal.integrated.env.osx": {
+        "PYLON_ROOT": "/Library/Frameworks/pylon.framework/Versions/Current",
+        "DYLD_LIBRARY_PATH": "/Library/Frameworks/pylon.framework/Versions/Current/Libraries",
+        "CPATH": "/Library/Frameworks/pylon.framework/Versions/Current/Headers",
+        "LIBRARY_PATH": "/Library/Frameworks/pylon.framework/Versions/Current/Libraries"
+    }
+}
