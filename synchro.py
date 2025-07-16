@@ -13,11 +13,14 @@ for i,cam in enumerate(cameras):
     cam.Attach(tl_factory.CreateDevice(devices[i]))#привязывает объект кам к реальной физической камере из списка девайсов
     cam.SetCameraContext(i)#к каждой камере номер
     cam.Open()
+    node_map = cam.GetNodeMap()
+    packet_size = node_map.GetNode("GevSCPSPacketSize")
+    scp_delay = node_map.GetNode("GevSCPD")
     if cam.GetDeviceInfo().GetDeviceClass()=='BaslerGigE':
-        if cam.GevSCPSPacketSize.IsWritable():
-            cam.GevSCPSPacketSize.SetValue(1440)#размер udp пакета
-        if cam.GevSCPD.IsWritable():
-            cam.GevSCPD.SetValue(10000)#задержка между отправкой
+       
+        packet_size.SetValue(1440)#размер udp пакета
+     
+        scp_delay.SetValue(10000)#задержка между отправкой
 master=cameras[0]
 master.TriggerSelector.SetValue("AcquisitionStart")
 master.TriggerMode.SetValue("On")
@@ -36,8 +39,9 @@ slave.TriggerDelayAbs.SetValue(0.0002)
 cameras.StartGrabbing()
 try:
     for i in range(100):
-        master.ExecuteSoftwareTrigger()
-        for _ in range(2):
+            master.ExecuteSoftwareTrigger()
+            time.sleep(0.05)
+        # for _ in range(2):
             res=cameras.RetrieveResult(5000, pylon.TimeoutHandling_ThrowException)
             context=res.GetCameraContext()#каждый раз узнаем от кого пришел кадр
             img=pylon.PylonImage()

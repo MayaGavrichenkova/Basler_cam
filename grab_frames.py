@@ -14,7 +14,7 @@ camera.Open()
 # converter.OutputBitAlignment = pylon.OutputBitAlignment_MsbAligned#выравнивание по старшему биту
 camera.StartGrabbing()
 
-path='/Users/maya/Desktop/frames/'
+path='/Users/majagavricenkova/Desktop/frames'
 img = pylon.PylonImage()
 while camera.IsGrabbing():
     grab_result = camera.RetrieveResult(5000, pylon.TimeoutHandling_ThrowException)#возвращение кадра присланного камерой и ошибка и задержка
